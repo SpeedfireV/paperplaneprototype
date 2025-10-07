@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cypx1x07g0g7f"]
+
+[ext_resource type="PackedScene" uid="uid://bjhb534y0yfj2" path="res://src/scenes/paper_plane/paper_plane.tscn" id="1_kkvs4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1fxj6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkvs4"]
+albedo_color = Color(0.192157, 0.556863, 0.32549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kkvs4"]
+
+[node name="Main" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1542.97, 0, 0, 0, 75.976, 0, 0, 0, 1000, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1fxj6")
+surface_material_override/0 = SubResource("StandardMaterial3D_kkvs4")
+
+[node name="PaperPlane" parent="." instance=ExtResource("1_kkvs4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.876443, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.679147, 0.734003, 0, -0.734003, 0.679147, 0.0342484, 11.9593, 12.078)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.2977)
+mesh = SubResource("BoxMesh_kkvs4")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74444, 0.498855, -2.62535)
+mesh = SubResource("BoxMesh_kkvs4")
