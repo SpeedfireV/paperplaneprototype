@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://xqs3aegna1mb"]
+
+[ext_resource type="Script" uid="uid://db21h3ujw31tr" path="res://src/scenes/camera_grip.gd" id="1_ewydl"]
+
+[node name="CameraGrip" type="Node3D"]
+script = ExtResource("1_ewydl")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)

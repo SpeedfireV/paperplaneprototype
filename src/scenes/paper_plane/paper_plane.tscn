@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bjhb534y0yfj2"]
+[gd_scene load_steps=12 format=4 uid="uid://bjhb534y0yfj2"]
 
 [ext_resource type="Script" uid="uid://do6ppopl22rfw" path="res://src/scenes/paper_plane/paper_plane.gd" id="1_00jjs"]
 
@@ -59,13 +59,11 @@ points = PackedVector3Array(0.0935001, 0.0793713, -0.199991, 0.176021, 0.0730208
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_syqqq"]
 points = PackedVector3Array(-0.122375, 0.0730208, -0.130148, -0.0652487, 0.104762, 0.00312489, -0.0779458, 0.104762, 0.00312489, -0.0652487, 0.0920573, -0.250744, -0.160467, 0.0793713, -0.0349529, -0.0652487, 0.0920573, 0.00312489, -0.154118, 0.0666667, 0.00312489, -0.0779458, 0.0793713, -0.187264, -0.0715973, 0.0984077, -0.180926, -0.173164, 0.0730208, 0.00312489, -0.0842944, 0.0920573, -0.219004, -0.0652487, 0.0857143, -0.250744, -0.166815, 0.0666667, -0.0286149, -0.0715973, 0.104762, -0.0603547, -0.14777, 0.0666667, -0.0286149, -0.090643, 0.0793713, -0.206328, -0.122375, 0.0920573, 0.00312489, -0.0652487, 0.0857143, -0.136486, -0.0779458, 0.0793713, -0.212666, -0.0652487, 0.104762, -0.0603547, -0.0715973, 0.0920573, -0.250744, -0.166815, 0.0730208, -0.0286149, -0.0779458, 0.104762, -0.022252, -0.173164, 0.0666667, 0.00312489, -0.160467, 0.0793713, 0.00312489, -0.14777, 0.0666667, -0.041291, -0.090643, 0.0920573, -0.193627, -0.10334, 0.0920573, -0.12381, -0.0652487, 0.0984077, -0.180926, -0.0715973, 0.0857143, -0.250744, -0.14777, 0.0793713, -0.0730308, -0.173164, 0.0730208, -0.00955115)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_8rrbr"]
+radius = 0.76377
+
 [node name="PaperPlane" type="CharacterBody3D"]
 script = ExtResource("1_00jjs")
-min_fov = 60.0
-max_fov = 80.0
-min_angle = -25.0
-min_camera_position = Vector3(0, 0.8, 0.8)
-max_camera_position = Vector3(0, 0.9, 1.1)
 
 [node name="PlaneMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.996561, -0.0828604, 0, 0.0828604, 0.996561, 0, 0, 0, 1, 0, 0, 0)
@@ -90,12 +88,11 @@ shape = SubResource("ConvexPolygonShape3D_rc1j4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_syqqq")
 
-[node name="CameraGrip" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.65)
-
-[node name="Camera3D" type="Camera3D" parent="CameraGrip"]
-transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.874654, 0.484749, 0, -0.484749, 0.874654, 0, 0.101319, -0.0640123)
 light_energy = 0.5
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_8rrbr")

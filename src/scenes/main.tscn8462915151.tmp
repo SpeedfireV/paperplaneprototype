@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cypx1x07g0g7f"]
+
+[ext_resource type="PackedScene" uid="uid://bjhb534y0yfj2" path="res://src/scenes/paper_plane/paper_plane.tscn" id="1_kkvs4"]
+[ext_resource type="PackedScene" uid="uid://d2vxhoge3sf7o" path="res://src/scenes/world.tscn" id="2_rr2wm"]
+[ext_resource type="PackedScene" uid="uid://bmn60705473yg" path="res://src/hud.tscn" id="3_32aa5"]
+
+[node name="Main" type="Node3D"]
+
+[node name="PaperPlane" parent="." instance=ExtResource("1_kkvs4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.876443, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.355303, 0.934751, 0, -0.934751, 0.355303, 0.0342484, 153.972, 233.79)
+light_color = Color(1, 1, 0.34902, 1)
+light_energy = 0.4
+shadow_enabled = true
+
+[node name="World" parent="." instance=ExtResource("2_rr2wm")]
+
+[node name="Hud" parent="." instance=ExtResource("3_32aa5")]
+visible = false
