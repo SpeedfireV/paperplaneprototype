@@ -6,13 +6,6 @@ class_name PaperPlane extends CharacterBody3D
 @export var max_speed := 10.0
 @export var rotation_speed := 0.8
 @export var min_speed := 2
-@export_category("Camera")
-@export var min_fov := 70.0
-@export var max_fov := 90.0
-@export var min_angle := -15.0
-@export var max_angle := -20.0
-@export var min_camera_position := Vector3(0, 0.4, 0.65)
-@export var max_camera_position := Vector3(0, 0.5, 0.9)
 
 
 @onready var plane_mesh : MeshInstance3D = $PlaneMesh
@@ -20,6 +13,10 @@ class_name PaperPlane extends CharacterBody3D
 @onready var camera_grip: Node3D = $CameraGrip
 
 var current_speed := 0.0
+
+var accel_input: float
+var rotation_input: Vector3
+var steer_input: float
 
 func _physics_process(delta):
 	var accel_input := Input.get_axis("speed_down", "speed_up")
@@ -69,13 +66,13 @@ func _physics_process(delta):
 	elif downward_amount > 0.2:
 		current_speed = min(current_speed + acceleration * 2 * delta * abs(downward_amount), max_speed)
 
-	if rotation.x > PI / 6:
-		rotation.x = lerp(rotation.x, 0., delta)
+	# if rotation.x < -PI / 6:
+	# 	rotation.x = lerp(rotation.x, 0., 0.1)
 
 	rotate_object_local(Vector3.DOWN, -rotation_input.x * rotation_speed * delta)
 	rotate_object_local(Vector3.DOWN, 0.25 * steer_input * rotation_speed * delta)
 
-	rotation.z = lerp(rotation.z, 0., (0.05 + max(0, abs(rotation.z) - PI / 4) * 0.5) * current_speed * delta)
+	rotation.z = lerp(rotation.z, 0., (0.05 + max(0, abs(rotation.z) - PI / 4) * 0.5) * current_speed)
 
 	rotation.x += -0.1 * delta
 
@@ -83,15 +80,3 @@ func _physics_process(delta):
 	velocity = forward_dir * current_speed
 
 	move_and_slide()
-
-	var camera_grip_vector := (max_camera_position - min_camera_position).normalized()
-	var orthogonal_grip_vector := camera_grip_vector.cross(Vector3.FORWARD).normalized() # Horyzontalna "szyna" kamery - ruch w lewo/prawo
-	var target_camera_position = min_camera_position + (max_camera_position - min_camera_position) * (current_speed / max_speed)
-
-	if steer_input != 0:
-		target_camera_position += orthogonal_grip_vector * steer_input * 0.1 * (current_speed / max_speed) * 2.5
-
-	camera.fov = lerp(min_fov, max_fov, current_speed / max_speed)
-	# camera.rotation.x = lerp(min_angle, max_angle, current_speed / max_speed)
-
-	camera_grip.position = lerp(camera_grip.position, target_camera_position, delta)
